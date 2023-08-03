@@ -17,7 +17,7 @@ This project was built using:
 
 This sample is available to download and use inMicrosoft Teams.
 
-1. Go to the [releases]() page and download the ZIP file.
+1. Go to the [releases](https://github.com/garrytrinder/msteams-azure-search-openai-demo/releases) page and download the ZIP file.
 1. Open Microsoft Teams.
 1. Select `Apps` from the left rail.
 1. Select `Manage your apps`.
