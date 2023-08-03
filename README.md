@@ -110,10 +110,10 @@ TEAMS_APP_ID=
 BOT_AZURE_APP_SERVICE_RESOURCE_ID=
 BOT_DOMAIN=
 
-> NOTE: You need to replace the `APP_BACKEND_ENDPOINT` value with the URL of your provisioned backend.
+APP_BACKEND_ENDPOINT=https://app-backend-{randomid}.azurewebsites.net
 ```
 
-> NOTE: You should replace the `APP_BACKEND_ENDPOINT` value with your provisioned backend.
+> NOTE: You need to replace the `APP_BACKEND_ENDPOINT` value with the URL of your provisioned backend.
 
 ### env.dev.user
 
