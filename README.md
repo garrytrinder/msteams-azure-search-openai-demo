@@ -13,23 +13,6 @@ This project was built using:
 - [Adaptive Cards](https://adaptivecards.io), are an open card exchange format enabling developers to exchange UI content in a common and consistent way.
 - [Azurite](https://www.npmjs.com/package/azurite), provides emulation for Azure Storage during development.
 
-## Try it now!
-
-This sample is available to download and use inMicrosoft Teams.
-
-1. Go to the [releases](https://github.com/garrytrinder/msteams-azure-search-openai-demo/releases) page and download the ZIP file.
-1. Open Microsoft Teams.
-1. Select `Apps` from the left rail.
-1. Select `Manage your apps`.
-1. Select `Upload an app`.
-1. Select `Upload a customised app`.
-1. Select the ZIP file you downloaded.
-1. Select `Add` to install the app.
-
-> **NOTE**: If `Upload a customised app option` does not appear, you do not have the ability to sideload apps.
-
-> **TIP**: [Join](https://developer.microsoft.com/microsoft-365/dev-program?WT.mc_id=m365-00000-garrytrinder) the Microsoft 365 Developer Program and get your _free_ developer instant sandbox with sideloading enabled.
-
 ## Run locally using Teams Toolkit
 
 To run this project locally you will need to:
