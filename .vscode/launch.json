@@ -35,7 +35,8 @@
                 "group": "all",
                 "hidden": true
             },
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "neverOpen",
+            "postDebugTask": "Terminate All Tasks"
         },
         {
             "name": "Launch App (Chrome)",
@@ -49,7 +50,8 @@
                 "group": "all",
                 "hidden": true
             },
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "neverOpen",
+            "postDebugTask": "Terminate All Tasks"
         },
         {
             "name": "Attach to Local Service",
