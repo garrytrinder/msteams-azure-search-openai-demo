@@ -11,26 +11,27 @@ import {
     getSupportingContent,
     isExampleMessage,
     renderCard,
-    sendAdaptiveCard
+    sendAdaptiveCard,
+    getFollowupQuestions
 } from "../shared/helpers";
 
 import responseCard from "../shared/cards/response.json";
 import welcomeCard from "../shared/cards/welcome.json";
 
-import { IResponseCard, IWelcomeCard } from "../shared/interfaces";
+import { ResponseCard, WelcomeCard } from "../shared/types";
 import { constants } from "../shared/constants";
 
 const setup = (app: Application) => {
 
     app.activity(ActivityTypes.InstallationUpdate, async (context: TurnContext) => {
-        const card = renderCard<IWelcomeCard>(welcomeCard, { questions: constants.questions });
+        const card = renderCard<WelcomeCard>(welcomeCard, { questions: constants.questions });
         await sendAdaptiveCard(context, card);
     });
 
-    app.message('New chat', async (context: TurnContext, state: ApplicationTurnState) => {
+    app.message(constants.newChatMessageKeyword, async (context: TurnContext, state: ApplicationTurnState) => {
         resetConversation(state);
-        await context.sendActivity(`New chat session started - Previous messages won't be used as context for new queries`);
-        const card = renderCard<IWelcomeCard>(welcomeCard, { questions: constants.questions });
+        await context.sendActivity(constants.newChatMessageText);
+        const card = renderCard<WelcomeCard>(welcomeCard, { questions: constants.questions });
         await sendAdaptiveCard(context, card);
     });
 
@@ -40,18 +41,21 @@ const setup = (app: Application) => {
         let chatHistory = createChatHistory(state, context.activity.text);
 
         const chatResponse = await getChatResponse(state.conversation.value.history);
-
+        console.log(new Date().toUTCString());
+        console.log(chatResponse.answer);
+        console.log(chatResponse.data_points);
+        console.log(chatResponse.thoughts);
         chatHistory = updateChatHistory(chatHistory, chatHistory.length - 1, chatResponse.answer);
 
-
+        const answer = getAnswerText(chatResponse.answer);
         const citations = getCitations(chatResponse.answer);
-        const answer = getAnswerText(chatResponse.answer, citations);
+        const followupQuestions = getFollowupQuestions(chatResponse.answer);
         const supportingContent = getSupportingContent(chatResponse.data_points);
-        const data: IResponseCard = { answer, citations, supportingContent };
+        const data: ResponseCard = { answer, citations, supportingContent };
 
-        const card = renderCard<IResponseCard>(responseCard, data);
+        const card = renderCard<ResponseCard>(responseCard, data);
 
-        await sendAdaptiveCard(context, card);
+        await sendAdaptiveCard(context, card, followupQuestions);
     });
 };
 
