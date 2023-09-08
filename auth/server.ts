@@ -1,6 +1,6 @@
-import * as restify from "restify";
-import app from "./app";
-import adapter from "./app/shared/adapter";
+import * as restify from 'restify';
+import app from './app';
+import adapter from './app/shared/adapter';
 
 // create server
 const server = restify.createServer();
@@ -14,8 +14,8 @@ server.listen(process.env.port || process.env.PORT || 3978, () => {
 });
 
 // Listen for incoming requests
-server.post("/api/messages", async (req, res) => {
-  await adapter.process(req, res, async (context) => {
+server.post('/api/messages', async (req, res) => {
+  await adapter.process(req, res, async context => {
     await app.run(context);
   });
 });

@@ -1,5 +1,5 @@
 import * as restify from 'restify';
-import { postMessages } from './app/routes';
+import {postMessages} from './app/routes';
 
 const server = restify.createServer();
 

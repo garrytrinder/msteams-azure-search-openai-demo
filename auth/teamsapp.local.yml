@@ -11,23 +11,23 @@ provision:
       name: chat-with-your-data-${{TEAMSFX_ENV}}
     # Write the information of created resources into environment file for
     # the specified environment variable(s).
-    writeToEnvironmentFile: 
+    writeToEnvironmentFile:
       teamsAppId: TEAMS_APP_ID
 
   - uses: aadApp/create
     with:
-        name: Conversation Bot ${{TEAMSFX_ENV}}
-        generateClientSecret: true
-        signInAudience: AzureADMultipleOrgs
+      name: Conversation Bot ${{TEAMSFX_ENV}}
+      generateClientSecret: true
+      signInAudience: AzureADMultipleOrgs
     writeToEnvironmentFile:
-        clientId: BOT_ID
-        objectId: BOT_OBJECT_ID
-        clientSecret: SECRET_BOT_PASSWORD
+      clientId: BOT_ID
+      objectId: BOT_OBJECT_ID
+      clientSecret: SECRET_BOT_PASSWORD
 
   - uses: aadApp/update
     with:
       manifestPath: ./aad.manifest.json
-      outputFilePath : ./build/aad.manifest.${{TEAMSFX_ENV}}.json
+      outputFilePath: ./build/aad.manifest.${{TEAMSFX_ENV}}.json
 
   - uses: arm/deploy
     with:

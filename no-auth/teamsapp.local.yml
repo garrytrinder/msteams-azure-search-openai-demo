@@ -5,11 +5,10 @@
 version: 1.0.0
 
 provision:
-
   - uses: teamsApp/create
     with:
       name: ${{BOT_DISPLAY_NAME}} ${{TEAMSFX_ENV}}
-    writeToEnvironmentFile: 
+    writeToEnvironmentFile:
       teamsAppId: TEAMS_APP_ID
 
   - uses: botAadApp/create
@@ -17,14 +16,14 @@ provision:
       name: ${{BOT_DISPLAY_NAME}} ${{TEAMSFX_ENV}}
     writeToEnvironmentFile:
       botId: BOT_ID
-      botPassword: SECRET_BOT_PASSWORD 
+      botPassword: SECRET_BOT_PASSWORD
 
   - uses: botFramework/create
     with:
       botId: ${{BOT_ID}}
       name: ${{BOT_DISPLAY_NAME}} ${{TEAMSFX_ENV}}
       messagingEndpoint: ${{BOT_ENDPOINT}}/api/messages
-      description: ""
+      description: ''
       channels:
         - name: msteams
 
@@ -47,7 +46,6 @@ provision:
       appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
 
 deploy:
-
   - uses: cli/runNpmCommand
     with:
       args: install --no-audit

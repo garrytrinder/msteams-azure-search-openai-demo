@@ -1,25 +1,25 @@
 export interface IChatResponse {
-    answer: string;
-    data_points: string[];
-    thoughts: string;
+  answer: string;
+  data_points: string[];
+  thoughts: string;
 }
 
 export interface IWelcomeCard {
-    questions: string[];
+  questions: string[];
 }
 
 export interface IResponseCard {
-    answer: string;
-    citations: ICitation[];
-    supportingContent: ISupportingContent[];
+  answer: string;
+  citations: ICitation[];
+  supportingContent: ISupportingContent[];
 }
 
 export interface ICitation {
-    filename: string;
-    url: string;
+  filename: string;
+  url: string;
 }
 
 export interface ISupportingContent {
-    filename: string;
-    content: string;
+  filename: string;
+  content: string;
 }

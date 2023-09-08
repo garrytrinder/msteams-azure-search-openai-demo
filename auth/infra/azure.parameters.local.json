@@ -17,7 +17,7 @@
     "botDisplayName": {
       "value": "Chat with your data"
     },
-    "appBackendEndpoint":{
+    "appBackendEndpoint": {
       "value": "${{APP_BACKEND_ENDPOINT}}"
     },
     "botAppDomain": {

@@ -6,7 +6,6 @@ version: 1.0.0
 environmentFolderPath: ./env
 
 provision:
-
   - uses: teamsApp/create
     with:
       name: chat-with-your-data-${{TEAMSFX_ENV}}
@@ -57,7 +56,6 @@ provision:
       appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
 
 deploy:
-
   - uses: cli/runNpmCommand
     name: install dependencies
     with:
@@ -75,7 +73,6 @@ deploy:
       resourceId: ${{BOT_AZURE_APP_SERVICE_RESOURCE_ID}}
 
 publish:
-
   - uses: teamsApp/validateManifest
     with:
       manifestPath: ./appPackage/manifest.json

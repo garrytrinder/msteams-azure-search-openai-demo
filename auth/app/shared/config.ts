@@ -4,7 +4,7 @@ const config = {
   botPassword: process.env.BOT_PASSWORD,
   blobConnectionString: process.env.BLOB_STORAGE_CONNECTION_STRING,
   blobContainerName: process.env.BLOB_STORAGE_CONTAINER_NAME,
-  oauthConnectionName: process.env.OAUTH_CONNECTION_NAME
+  oauthConnectionName: process.env.OAUTH_CONNECTION_NAME,
 };
 
 export default config;

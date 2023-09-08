@@ -6,7 +6,7 @@ It builds on top of the [ChatGPT + Enterprise data with Azure OpenAI and Cogniti
 
 ![Chat with your data bot in Microsoft Teams](./assets/bot.png)
 
-The apps were built using: 
+The apps were built using:
 
 - [Teams Toolkit v5.0.1](https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension), provides tools for building Teams apps, fast.
 - [Teams AI Library (public preview)](https://www.npmjs.com/package/@microsoft/teams-ai), provides a Microsoft Teams centric approach to building bots.
