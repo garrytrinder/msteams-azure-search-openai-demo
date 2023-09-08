@@ -1,14 +1,24 @@
 {
   "compilerOptions": {
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "declaration": true,
-    "target": "es2017",
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2018"],
     "module": "commonjs",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "pretty": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2018",
     "outDir": "./lib",
     "rootDir": "./",
-    "sourceMap": true,
-    "incremental": true,
-    "tsBuildInfoFile": "./lib/.tsbuildinfo",
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-  }
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }
