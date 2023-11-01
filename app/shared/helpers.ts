@@ -1,101 +1,142 @@
-import { AdaptiveCards } from "@microsoft/adaptivecards-tools";
-import { TurnContext } from "botbuilder";
-import { ApplicationTurnState, ChatHistory } from "..";
-import config from "./config";
+import {AdaptiveCards} from '@microsoft/adaptivecards-tools';
+import {Activity, TurnContext} from 'botbuilder';
+import {ApplicationTurnState} from '..';
+import config from './config';
 import {
-    IChatResponse,
-    ICitation,
-    ISupportingContent,
-} from "./interfaces";
+  ChatMessage,
+  ChatRequest,
+  ChatResponse,
+  Citation,
+  SupportingContent,
+} from './types';
 
 // check if message is an example message from the welcome card
-export const isExampleMessage = (activity: any) =>
-    activity.value && activity.value.messageType === "example";
+export const isExampleMessage = (activity: Activity) =>
+  activity.value && activity.value.messageType === 'example';
 
 // render an adaptive card from a template and data
-export const renderCard = <T extends object>(template: any, data: T) => {
-    return AdaptiveCards.declare<T>(template).render(data);
-}
+export const renderCard = <T extends object>(template: unknown, data: T) => {
+  return AdaptiveCards.declare<T>(template).render(data);
+};
 
-// send an adaptive card to the user
-export const sendAdaptiveCard = async (context: TurnContext, card: any) => {
-    await context.sendActivity({
-        type: 'message',
-        attachments: [{
-            contentType: 'application/vnd.microsoft.card.adaptive',
-            content: card
-        }]
-    });
-}
+// send an adaptive card to the user with suggested actions (if any)
+export const sendAdaptiveCard = async (
+  context: TurnContext,
+  card: unknown,
+  suggestions?: string[]
+) => {
+  await context.sendActivity({
+    type: 'message',
+    attachments: [
+      {
+        contentType: 'application/vnd.microsoft.card.adaptive',
+        content: card,
+      },
+    ],
+    suggestedActions: {
+      to: [context.activity.from.id],
+      actions: suggestions?.map(suggestion => {
+        return {
+          type: 'imBack',
+          title: suggestion,
+          value: suggestion,
+        };
+      }),
+    },
+  });
+};
 
 // reset conversation history
-export const resetConversation = (state: ApplicationTurnState): void => state.conversation.delete();
+export const resetConversationHistory = (state: ApplicationTurnState): void =>
+  state.conversation.delete();
 
 // create conversation history if not exists
-export const createChatHistory = (state: ApplicationTurnState, text: string): ChatHistory[] => {
-    state.conversation.value.history = state.conversation.value.history || [];
-    state.conversation.value.history.push({ user: text });
-    return state.conversation.value.history;
-}
+export const createConversationHistory = (
+  state: ApplicationTurnState
+): ChatMessage[] =>
+  (state.conversation.value.messages = state.conversation.value.messages || []);
+
+export const addMessageToConversationHistory = (
+  state: ApplicationTurnState,
+  message: ChatMessage
+): number => state.conversation.value.messages.push(message);
 
 // call backend to get chat response
-export const getChatResponse = async (conversation: ChatHistory[]): Promise<IChatResponse> => {
-    // send request to backend
-    const response = await fetch(`${config.appBackendEndpoint}/chat`, {
-        method: 'POST',
-        body: JSON.stringify({
-            "history": conversation,
-            "approach": "rrr",
-            "overrides": {
-                "retrieval_mode": "hybrid",
-                "semantic_ranker": true,
-                "semantic_captions": false,
-                "top": 3,
-                "suggest_followup_questions": false
-            }
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+export const getChatResponse = async (
+  messages: ChatMessage[]
+): Promise<ChatResponse> => {
+  const chatPayload: ChatRequest = {
+    context: {
+      overrides: {
+        retrieval_mode: 'hybrid',
+        semantic_ranker: true,
+        semantic_captions: false,
+        suggest_followup_questions: true,
+        top: 3,
+        use_groups_security_filter: false,
+        use_oid_security_filter: false,
+      },
+    },
+    messages,
+    session_state: null,
+    stream: false,
+  };
 
-    // get response data
-    return await response.json();
+  const response = await fetch(`${config.appBackendEndpoint}/chat`, {
+    method: 'POST',
+    body: JSON.stringify(chatPayload),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) throw new Error(response.statusText);
+  return await response.json();
 };
-
-// update previous history entry with answer from bot 
-export const updateChatHistory = (chatHistory: ChatHistory[], indexToUpdate: number, answer: string): ChatHistory[] => {
-    return [
-        ...chatHistory,
-        chatHistory[indexToUpdate] = {
-            user: chatHistory[indexToUpdate].user,
-            bot: answer
-        }
-    ];
-};
-
-// extract text from answer
-export const getAnswerText = (answer: string, citations: ICitation[]): string =>
-    `${answer.replace(/\[.*?\]/g, '').trim()} ${citations.map((num, index) => `**${index + 1}**`).join(' ')}`
 
 // extract citation filenames into array - text [file.pdf][file.pdf] -> ["file.pdf", "file.pdf"]
-export const getCitations = (answer: string): ICitation[] => {
-    return answer.match(/\[(.*?)\]/g)
-        .map(match => match.slice(1, -1))
-        .map(citation => {
-            return {
-                "filename": citation,
-                "url": `${config.appBackendEndpoint}/content/${citation}`
-            };
-        });
+export const getCitations = (content: string): string[] => {
+  const matches = content.match(/\[(.*?)\]/g);
+  if (matches) {
+    const uniqueMatches = Array.from(
+      new Set(matches.map(match => match.slice(1, -1)))
+    );
+    return uniqueMatches;
+  }
+  return [];
 };
 
 // transform data_points array items from strings to objects - "file.pdf: content" -> [{file: file.pdf, content: content}]
-export const getSupportingContent = (data_points: string[]): ISupportingContent[] => {
-    return data_points.map((value: string) => {
-        return {
-            "filename": value.split(':')[0],
-            "content": value.split(':').splice(1).join(':').trim()
-        };
-    });
+export const getSupportingContent = (
+  data_points: string[]
+): SupportingContent[] => {
+  return data_points.map((value: string) => {
+    return {
+      filename: value.split(':')[0],
+      content: value.split(':').splice(1).join(':').trim(),
+    };
+  });
+};
+
+// replace citations with numbers in reply text - [file.pdf][file.pdf] -> **1** **2**
+export const replaceCitations = (
+  citations: string[],
+  content: string
+): string => {
+  citations.forEach((citation, index) => {
+    const regex = new RegExp(`\\[${citation}\\]`, 'g');
+    content = content.replace(regex, `**${index + 1}**`);
+  });
+  // add space between citations - **1****2** -> **1** **2**
+  return content.replace(/\*\*\*\*/g, '** **');
+};
+
+// convert citation filenames to objects - ["file.pdf", "file.pdf"] -> [{filename: "file.pdf", url: "https://..."}, {filename: "file.pdf", url: "https://..."}]
+export const convertCitations = (citations: string[]): Citation[] => {
+  return citations.map(citation => {
+    return {
+      filename: citation,
+      url: `${config.appBackendEndpoint}/content/${citation}`,
+    };
+  });
 };
