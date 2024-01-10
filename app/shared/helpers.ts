@@ -48,18 +48,18 @@ export const sendAdaptiveCard = async (
 
 // reset conversation history
 export const resetConversationHistory = (state: ApplicationTurnState): void =>
-  state.conversation.delete();
+  state.deleteConversationState();
 
 // create conversation history if not exists
 export const createConversationHistory = (
   state: ApplicationTurnState
 ): ChatMessage[] =>
-  (state.conversation.value.messages = state.conversation.value.messages || []);
+  (state.conversation.messages = state.conversation.messages || []);
 
 export const addMessageToConversationHistory = (
   state: ApplicationTurnState,
   message: ChatMessage
-): number => state.conversation.value.messages.push(message);
+): number => state.conversation.messages.push(message);
 
 // call backend to get chat response
 export const getChatResponse = async (
