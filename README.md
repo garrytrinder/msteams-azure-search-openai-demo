@@ -9,7 +9,7 @@ It builds on top of the [ChatGPT + Enterprise data with Azure OpenAI and Cogniti
 This project was built using: 
 
 - [Teams Toolkit v5](https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension), provides tools for building Teams apps, fast.
-- [Teams AI Library (public preview)](https://www.npmjs.com/package/@microsoft/teams-ai), provides a Microsoft Teams centric approach to building bots.
+- [Teams AI Library](https://www.npmjs.com/package/@microsoft/teams-ai), provides a Microsoft Teams centric approach to building bots.
 - [Adaptive Cards](https://adaptivecards.io), are an open card exchange format enabling developers to exchange UI content in a common and consistent way.
 - [Azurite](https://www.npmjs.com/package/azurite), provides emulation for Azure Storage during development.
 
