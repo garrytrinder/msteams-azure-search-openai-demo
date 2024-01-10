@@ -1,4 +1,4 @@
-import {Application, DefaultTurnState} from '@microsoft/teams-ai';
+import {Application, TurnState} from '@microsoft/teams-ai';
 import {BlobsStorage} from 'botbuilder-azure-blobs';
 import adapter from './shared/adapter';
 import * as bot from './bot';
@@ -9,7 +9,7 @@ type ConversationState = {
   messages: ChatMessage[];
 };
 
-export type ApplicationTurnState = DefaultTurnState<ConversationState>;
+export type ApplicationTurnState = TurnState<ConversationState>;
 
 const storage = new BlobsStorage(
   config.blobConnectionString,
