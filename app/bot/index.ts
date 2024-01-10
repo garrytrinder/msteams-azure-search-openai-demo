@@ -59,9 +59,7 @@ const setup = (app: Application) => {
         role: 'user',
       });
 
-      const chatResponse = await getChatResponse(
-        state.conversation.value.messages
-      );
+      const chatResponse = await getChatResponse(state.conversation.messages);
       const {data_points, followup_questions} = chatResponse.choices[0].context;
       const {message: reply} = chatResponse.choices[0];
 
