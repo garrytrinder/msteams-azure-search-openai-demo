@@ -4,6 +4,9 @@ This sample app demonstrates how to use a Microsoft Teams bot to chat with your 
 
 It builds on top of the [ChatGPT + Enterprise data with Azure OpenAI and Cognitive Search](https://github.com/Azure-Samples/azure-search-openai-demo) sample.
 
+> [!IMPORTANT]
+> This sample has been tested against the 19th January 2024 [commit](https://github.com/Azure-Samples/azure-search-openai-demo/tree/5e9d142e50a624cd70e42c4c654097e2fb646d36) in the `Azure Search OpenAI Demo` repo
+
 ![Chat with your data bot in Microsoft Teams](./assets/bot.png)
 
 This project was built using: 
