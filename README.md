@@ -9,7 +9,7 @@ It builds on top of the [ChatGPT + Enterprise data with Azure OpenAI and Cogniti
 
 ![Chat with your data bot in Microsoft Teams](./assets/bot.png)
 
-This project was built using: 
+This project was built using:
 
 - [Teams Toolkit v5](https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension), provides tools for building Teams apps, fast.
 - [Teams AI Library](https://www.npmjs.com/package/@microsoft/teams-ai), provides a Microsoft Teams centric approach to building bots.
@@ -20,7 +20,8 @@ This project was built using:
 
 To run this project locally you will need to:
 
-> **NOTE**: An Azure subscription is not required to run this sample locally, however you will require a Microsoft 365 tenant that has sideloading enabled.
+> [!NOTE]
+> An Azure subscription is not required to run this sample locally, however you will require a Microsoft 365 tenant that has sideloading enabled.
 
 1. Follow the steps to deploy the [ChatGPT + Enterprise data with Azure OpenAI and Cognitive Search](https://github.com/Azure-Samples/azure-search-openai-demo#getting-started) sample to Azure.
 1. Install Teams Toolkit from the extensions marketplace in VSCode.
@@ -31,13 +32,15 @@ To run this project locally you will need to:
 1. Update `APP_BACKEND_ENDPOINT` variable with the URL to your provisioned backend.
 1. Run Debug session (F5).
 
-> **TIP**: [Join](https://developer.microsoft.com/microsoft-365/dev-program?WT.mc_id=m365-00000-garrytrinder) the Microsoft 365 Developer Program and get your _free_ developer instant sandbox with sideloading enabled.
+> [!TIP]
+> [Join](https://developer.microsoft.com/microsoft-365/dev-program?WT.mc_id=m365-00000-garrytrinder) the Microsoft 365 Developer Program and get your _free_ developer instant sandbox with sideloading enabled.
 
 ## Deploy to Azure using Teams Toolkit
 
 To deploy your local project you will need to:
 
-> **NOTE**: An Azure subscription is required to deploy this project to Azure.
+> ![IMPORTANT]
+> An Azure subscription is required to deploy this project to Azure.
 
 1. Create [env.dev](#envdev) and [env.dev.user](#envdevuser) files in `env` folder.
 1. Update `APP_BACKEND_ENDPOINT` variable in `env.dev` with the URL of your provisioned backend.
@@ -53,13 +56,14 @@ The following resources will be deployed to Azure:
 - Microsoft Entra ID App Reg
 - Azure Storage Account
 
-> **COST**: The Azure App Service (B1) and Azure Storage Account resources incur a monthly cost. You should delete these resources when you no longer need them.
+> [!WARNING]
+> The Azure App Service (B1) and Azure Storage Account resources incur a monthly cost. You should delete these resources when you no longer need them.
 
 ## Reference files
 
 ### env.local
 
-```
+```text
 TEAMSFX_ENV=local
 
 BOT_ID=
@@ -74,17 +78,18 @@ BLOB_STORAGE_CONTAINER_NAME=state
 APP_BACKEND_ENDPOINT=https://app-backend-{randomid}.azurewebsites.net
 ```
 
-> NOTE: You need to replace the `APP_BACKEND_ENDPOINT` value with the URL of your provisioned backend.
+> [!IMPORTANT]
+> You need to replace the `APP_BACKEND_ENDPOINT` value with the URL of your provisioned backend.
 
 ### env.local.user
 
-```
+```text
 SECRET_BOT_PASSWORD=
 ```
 
 ### env.dev
 
-```
+```text
 TEAMSFX_ENV=dev
 
 AZURE_SUBSCRIPTION_ID=
@@ -99,10 +104,11 @@ BOT_DOMAIN=
 APP_BACKEND_ENDPOINT=https://app-backend-{randomid}.azurewebsites.net
 ```
 
-> NOTE: You need to replace the `APP_BACKEND_ENDPOINT` value with the URL of your provisioned backend.
+> [!IMPORTANT]
+> You need to replace the `APP_BACKEND_ENDPOINT` value with the URL of your provisioned backend.
 
 ### env.dev.user
 
-```
+```text
 SECRET_BOT_PASSWORD=
 ```
