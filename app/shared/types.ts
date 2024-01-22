@@ -19,13 +19,16 @@ export type SupportingContent = {
 };
 
 export type ChatOverrides = {
-  top: number;
+  gpt4v_input: string;
   retrieval_mode: string;
-  semantic_ranker: boolean;
   semantic_captions: boolean;
+  semantic_ranker: boolean;
   suggest_followup_questions: boolean;
+  top: number;
+  use_gpt4v: boolean;
   use_groups_security_filter: boolean;
   use_oid_security_filter: boolean;
+  vector_fields: string[];
 };
 
 export type ChatMessage = {

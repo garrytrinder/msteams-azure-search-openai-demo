@@ -59,7 +59,11 @@ export const createConversationHistory = (
 export const addMessageToConversationHistory = (
   state: ApplicationTurnState,
   message: ChatMessage
-): number => state.conversation.messages.push(message);
+): number =>
+  state.conversation.messages.push({
+    content: message.content,
+    role: message.role,
+  });
 
 // call backend to get chat response
 export const getChatResponse = async (
@@ -68,13 +72,16 @@ export const getChatResponse = async (
   const chatPayload: ChatRequest = {
     context: {
       overrides: {
+        gpt4v_input: 'textAndImages',
         retrieval_mode: 'hybrid',
-        semantic_ranker: true,
         semantic_captions: false,
+        semantic_ranker: true,
         suggest_followup_questions: true,
         top: 3,
+        use_gpt4v: false,
         use_groups_security_filter: false,
         use_oid_security_filter: false,
+        vector_fields: ['embedding'],
       },
     },
     messages,
