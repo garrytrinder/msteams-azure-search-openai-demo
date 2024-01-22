@@ -60,7 +60,9 @@ const setup = (app: Application) => {
       });
 
       const chatResponse = await getChatResponse(state.conversation.messages);
-      const {data_points, followup_questions} = chatResponse.choices[0].context;
+      const chatContext = chatResponse.choices[0].context;
+      const {followup_questions} = chatContext;
+      const {text: data_points} = chatContext.data_points;
       const {message: reply} = chatResponse.choices[0];
 
       addMessageToConversationHistory(state, reply);
