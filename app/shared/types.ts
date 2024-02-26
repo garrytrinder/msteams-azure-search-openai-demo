@@ -98,3 +98,8 @@ export type ChatUsage = {
   prompt_tokens: number;
   total_tokens: number;
 };
+
+export type ActionData = {
+  displayText: string;
+  text: string;
+};

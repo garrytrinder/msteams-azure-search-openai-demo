@@ -1,5 +1,5 @@
 import {AdaptiveCards} from '@microsoft/adaptivecards-tools';
-import {Activity, TurnContext} from 'botbuilder';
+import {TurnContext} from 'botbuilder';
 import {ApplicationTurnState} from '..';
 import config from './config';
 import {
@@ -7,16 +7,26 @@ import {
   ChatRequest,
   ChatResponse,
   Citation,
+  ResponseCard,
   SupportingContent,
+  WelcomeCard,
 } from './types';
-
-// check if message is an example message from the welcome card
-export const isExampleMessage = (activity: Activity) =>
-  activity.value && activity.value.messageType === 'example';
+import axios, {AxiosRequestConfig} from 'axios';
+import welcomeCard from '../shared/cards/welcome.json';
+import responseCard from '../shared/cards/response.json';
+import {AdaptiveCard} from '@microsoft/teams-ai';
 
 // render an adaptive card from a template and data
 export const renderCard = <T extends object>(template: unknown, data: T) => {
   return AdaptiveCards.declare<T>(template).render(data);
+};
+
+export const createWelcomeCard = (questions: string[]): AdaptiveCard => {
+  return renderCard<WelcomeCard>(welcomeCard, {questions});
+};
+
+export const createResponseCard = (data: ResponseCard): AdaptiveCard => {
+  return renderCard<ResponseCard>(responseCard, data);
 };
 
 // send an adaptive card to the user with suggested actions (if any)
@@ -89,16 +99,32 @@ export const getChatResponse = async (
     stream: false,
   };
 
-  const response = await fetch(`${config.appBackendEndpoint}/chat`, {
-    method: 'POST',
-    body: JSON.stringify(chatPayload),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  try {
+    let request: AxiosRequestConfig = {
+      url: `${config.appBackendEndpoint}/chat`,
+      method: 'POST',
+      data: chatPayload,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-  if (!response.ok) throw new Error(response.statusText);
-  return await response.json();
+    if (config.env === 'testtool') {
+      request = {
+        ...request,
+        proxy: {
+          protocol: 'http',
+          host: '127.0.0.1',
+          port: 8000,
+        },
+      };
+    }
+
+    const response = await axios(request);
+    return response.data as ChatResponse;
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 // extract citation filenames into array - text [file.pdf][file.pdf] -> ["file.pdf", "file.pdf"]

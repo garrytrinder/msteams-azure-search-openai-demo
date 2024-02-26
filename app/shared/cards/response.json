@@ -34,14 +34,14 @@
                 },
                 {
                     "type": "TextBlock",
-                    "$when": "$count(citations) > 0",
+                    "$when": "${count(citations) > 0}",
                     "text": "Citations:",
                     "weight": "Bolder",
                     "wrap": true
                 },
                 {
                     "type": "ActionSet",
-                    "$when": "$count(citations) > 0",
+                    "$when": "${count(citations) > 0}",
                     "actions": [
                         {
                             "type": "Action.OpenUrl",
@@ -56,7 +56,7 @@
         },
         {
             "type": "Container",
-            "$when": "$count(citations) > 0",
+            "$when": "${count(citations) > 0}",
             "items": [
                 {
                     "type": "ActionSet",
