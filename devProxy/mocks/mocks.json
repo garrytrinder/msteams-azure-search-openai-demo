@@ -173,6 +173,22 @@
           }
         ]
       }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://app-backend-*.azurewebsites.net/content/Benefit_Options.pdf"
+      },
+      "response": {
+        "statusCode": 200,
+        "body": "@docs/Benefit_Options.pdf",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/pdf"
+          }
+        ]
+      }
     }
   ]
 }
