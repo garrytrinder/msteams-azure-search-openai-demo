@@ -3,7 +3,7 @@
   "mocks": [
     {
       "request": {
-        "url": "https://app-backend-coijvay7cupc6.azurewebsites.net/chat",
+        "url": "https://app-backend-*.azurewebsites.net/chat",
         "method": "POST"
       },
       "response": {

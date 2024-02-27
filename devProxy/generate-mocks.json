@@ -8,6 +8,6 @@
         }
     ],
     "urlsToWatch": [
-        "https://app-backend-coijvay7cupc6.azurewebsites.net/chat"
+        "https://app-backend-*.azurewebsites.net/chat"
     ]
 }
