@@ -100,7 +100,7 @@ export const getChatResponse = async (
   };
 
   try {
-    let request: AxiosRequestConfig = {
+    const request: AxiosRequestConfig = {
       url: `${config.appBackendEndpoint}/chat`,
       method: 'POST',
       data: chatPayload,
@@ -108,17 +108,6 @@ export const getChatResponse = async (
         'Content-Type': 'application/json',
       },
     };
-
-    if (config.env === 'testtool') {
-      request = {
-        ...request,
-        proxy: {
-          protocol: 'http',
-          host: '127.0.0.1',
-          port: 8000,
-        },
-      };
-    }
 
     const response = await axios(request);
     return response.data as ChatResponse;
