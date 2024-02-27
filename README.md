@@ -38,8 +38,6 @@ To run this sample:
 > Use this approach if you don't have access to a Microsoft 365 tenant, are unable to use a Dev Tunnel, are unable to sideload apps into your tenant, or are unable provision Microsoft Entra ID or Bot Framework resources required to create a bot.
 
 1. [Install](https://learn.microsoft.com/microsoft-cloud/dev/dev-proxy/get-started#install-dev-proxy) Dev Proxy on your local machine
-1. In the `devProxy` folder, open the file named `use-mocks.json`
-1. In the `urlsToWatch` array, update the entry with the URL to your provisioned backend
 1. Open a terminal in the root project folder
 1. Execute `devproxy --config-file devProxy/use-mocks.json` to start Dev Proxy
 1. Open the side bar in VS Code, select the `Run and Debug` panel
