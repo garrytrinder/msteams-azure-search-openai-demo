@@ -34,7 +34,7 @@ To run this project, you will need to:
 
 To run this sample:
 
-> ![TIP]
+> [!TIP]
 > Use this approach if you don't have access to a Microsoft 365 tenant, are unable to use a Dev Tunnel, are unable to sideload apps into your tenant, or are unable provision Microsoft Entra ID or Bot Framework resources required to create a bot.
 
 1. [Install](https://learn.microsoft.com/microsoft-cloud/dev/dev-proxy/get-started#install-dev-proxy) Dev Proxy on your local machine
@@ -60,7 +60,7 @@ To run this sample:
 
 To deploy your local project you will need to:
 
-> ![IMPORTANT]
+> [!IMPORTANT]
 > An Azure subscription is required to deploy this project to Azure.
 
 1. Open the side bar in VS Code, select the `Teams Toolkit` icon
